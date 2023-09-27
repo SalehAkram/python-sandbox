@@ -43,9 +43,7 @@ def complete_transaction(required_ingredients, cost):
     resources["money"] += cost
 
 
-machine_on = True
-while machine_on:
-    choice = input("What would you like? (espresso/latte/cappuccino)")
+def process_transaction(choice):
     ingredients = MENU[choice]["ingredients"]
     result = check_resources(ingredients)
     if result.resources_available:
@@ -55,9 +53,19 @@ while machine_on:
             print(f"message sorry not enough money, refunded {total_inserted} ")
         else:
             change = total_inserted - MENU[choice]["cost"]
-            complete_transaction(ingredients,MENU[choice]["cost"])
+            complete_transaction(ingredients, MENU[choice]["cost"])
             print(f"Enjoy your {choice}")
             if change > 0:
                 print(f"Here is your change {change}")
+    else:
+        print(f"{result.message}")
 
 
+machine_on = True
+while machine_on:
+    choice = input("What would you like? (espresso/latte/cappuccino)")
+    if choice.lower() == "report":
+        for key in resources:
+            print(f"{key}: {resources[key]}")
+    else:
+        process_transaction(choice)
