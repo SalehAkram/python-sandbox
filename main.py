@@ -63,8 +63,10 @@ def process_transaction(choice):
 
 machine_on = True
 while machine_on:
-    choice = input("What would you like? (espresso/latte/cappuccino)")
-    if choice.lower() == "report":
+    choice = input("What would you like? (espresso/latte/cappuccino): ")
+    if choice.lower() == "off":
+        machine_on = False
+    elif choice.lower() == "report":
         for key in resources:
             print(f"{key}: {resources[key]}")
     else:
